@@ -37,11 +37,13 @@ public class SelenideTests {
     public void dropDown() {
         open("/dropdown");
 
-        $("#dropdown").getSelectedOption().shouldHave(text("Please select an option"));
+        SelenideElement dropDown = $("#dropdown");
 
-        $("#dropdown").selectOption("Option 2");
+        dropDown.getSelectedOption().shouldHave(text("Please select an option"));
 
-        $("#dropdown").getSelectedOption().shouldHave(text("Option 2"));
+        dropDown.selectOption("Option 2");
+
+        dropDown.getSelectedOption().shouldHave(text("Option 2"));
     }
 
     @Test
@@ -49,10 +51,10 @@ public class SelenideTests {
         open("https://demoqa.com/text-box");
 
         //by id
-        $("#userName").setValue("giorgi gengashvili");
+        $(byId("userName")).setValue("giorgi gengashvili");
 
         //by attribute
-        $(by("type","email")).setValue("giorgi.gengashvili0@gmail.com");
+        $(byAttribute("type","email")).setValue("giorgi.gengashvili0@gmail.com");
 
         // by placeholder
         $("textarea[placeholder = 'Current Address']").setValue("tbilisi, georgia");
