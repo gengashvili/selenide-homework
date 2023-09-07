@@ -28,7 +28,7 @@ public class SelenideTests2 {
         screenshots=true;
         reopenBrowserOnFail = true;
         fastSetValue=true;
-
+        assertionMode = AssertionMode.SOFT;
         fileDownload= FileDownloadMode.HTTPGET;
         downloadsFolder="src/main/resources/images";
         savePageSource = false;
@@ -66,17 +66,16 @@ public class SelenideTests2 {
     public void secondTest() {
         open(baseUrl);
 
-        $(".rt-table")
+        ElementsCollection books = $(".rt-table")
                 .find(".rt-tbody")
                 .findAll(".rt-tr-group")
                 .filterBy(text("O'Reilly Media"))
-                .filterBy(text("Javascript"))
-                .stream().forEach(el -> {
-                    el.$(By.xpath(".//img")).shouldHave(attribute("src"));
-                });
+                .filterBy(text("Javascript"));
 
+        books.stream().forEach(el -> {
+            el.$(By.xpath(".//img")).shouldNot(attribute("src", ""));
+       });
 
     }
-
 
 }
